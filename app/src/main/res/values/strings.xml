@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">JavaLearning</string>
+    <string name="exam">模拟考试</string>
+    <string name="collection">我的收藏</string>
+    <string name="error">我的错题</string>
+    <string name="study_in_order">顺序学习</string>
+    <string name="study_in_random">随机学习</string>
+    <string name="study_in_point">专项学习</string>
+    <string name="test_in_order">顺序练习</string>
+    <string name="test_in_random">随机练习</string>
+    <string name="test_in_point">专项练习</string>
+    <string name="exam_record">考试记录</string>
+    <string name="exam_count">考试统计</string>
+</resources>
