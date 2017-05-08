@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_finish_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_size_huge"
+        tools:text="学习完成" />
+
+    <TextView
+        android:id="@+id/tv_total_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_size_normal"
+        tools:text="总题数:100" />
+
+    <TextView
+        android:id="@+id/tv_correct_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/text_correct_green"
+        android:textSize="@dimen/text_size_normal"
+        tools:text="答对数:80" />
+
+    <TextView
+        android:id="@+id/tv_error_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/text_error_red"
+        android:textSize="@dimen/text_size_normal"
+        tools:text="答错数:80" />
+
+    <TextView
+        android:id="@+id/tv_undo_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/text_gray_blue"
+        android:textSize="@dimen/text_size_normal"
+        tools:text="未答数:80" />
+</LinearLayout>

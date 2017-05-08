@@ -55,19 +55,11 @@ public class BaseApplication extends Application
 
 	private void initDB() throws IOException
 	{
-		// TODO 初始化数据库
-		//		File dir = getDatabasePath("JavaLearning.db").getParentFile();
-		//
-		//		if (!dir.exists() || !dir.isDirectory())
-		//		{
-		//			dir.mkdir();
-		//		}
-		//
-		//		File file = new File(dir, DB_NAME);
 		File file = getDatabasePath("JavaLearning.db");
 		InputStream inputStream = null;
 		OutputStream outputStream = null;
 
+//		file.delete();
 		//通过IO流的方式，将assets目录下的数据库文件，写入到SD卡中。
 		if (!file.exists())
 		{

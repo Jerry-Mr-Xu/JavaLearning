@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_gray">
+
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar" />
+
+    <LinearLayout
+        android:id="@+id/ll_show_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/action_bar"
+        android:background="@color/base_white"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_alarm" />
+
+        <TextView
+            android:id="@+id/tv_show_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:gravity="center"
+            android:textColor="@color/text_dark_blue"
+            android:textSize="@dimen/text_size_normal"
+            tools:text="00:00:00" />
+
+        <TextView
+            android:id="@+id/tv_show_page"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:textColor="@color/text_dark_blue"
+            android:textSize="@dimen/text_size_normal"
+            tools:text="0/100" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_option_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/base_white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_collect"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <CheckBox
+                android:id="@+id/cb_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:button="@drawable/selector_collect"
+                android:clickable="false"
+                android:enabled="false"
+                android:gravity="center"
+                android:paddingLeft="8dp"
+                android:text="@string/collection"
+                android:textColor="@color/text_error_red"
+                android:textSize="@dimen/text_size_normal" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_finish"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/finish"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_size_normal"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_question"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ll_option_bar"
+        android:layout_below="@id/ll_show_bar"
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/base_white" />
+</RelativeLayout>

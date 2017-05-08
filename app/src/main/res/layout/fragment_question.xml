@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tv_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="4dp"
+        android:textColor="@color/text_gray_blue"
+        android:textSize="@dimen/text_size_normal"
+        tools:text="有一段java 应用程序，它的主类名是a1，那么保存它的源文件名可以是" />
+
+    <RadioGroup
+        android:id="@+id/rg_answers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb_answer1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:textColor="@drawable/selector_answer_text_color"
+            android:textSize="@dimen/text_size_normal"
+            tools:text="a1.java" />
+
+        <RadioButton
+            android:id="@+id/rb_answer2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="4dp"
+            android:textColor="@drawable/selector_answer_text_color"
+            android:textSize="@dimen/text_size_normal"
+            tools:text="a1.class" />
+
+        <RadioButton
+            android:id="@+id/rb_answer3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="4dp"
+            android:textColor="@drawable/selector_answer_text_color"
+            android:textSize="@dimen/text_size_normal"
+            tools:text="a1" />
+
+        <RadioButton
+            android:id="@+id/rb_answer4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="4dp"
+            android:textColor="@drawable/selector_answer_text_color"
+            android:textSize="@dimen/text_size_normal"
+            tools:text="都对" />
+    </RadioGroup>
+</LinearLayout>

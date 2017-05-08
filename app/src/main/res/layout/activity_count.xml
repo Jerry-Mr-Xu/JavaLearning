@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="count"
+            type="com.jerry.javalearning.exam.ExamCountModule" />
+
+        <variable
+            name="decimalFormat"
+            type="java.text.DecimalFormat" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/action_bar"
+            layout="@layout/action_bar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/action_bar"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.jerry.javalearning.utils.PieView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:correctPercent="@{Float.valueOf(count.correctNum)/Float.valueOf(count.totalNum)}"
+                app:errorPercent="@{Float.valueOf(count.errorNum)/Float.valueOf(count.totalNum)}"
+                app:undoPercent="@{Float.valueOf(count.undoNum)/Float.valueOf(count.totalNum)}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@{`已做题`+String.valueOf(count.totalNum)+`个`}"
+                android:textColor="@color/text_gray_blue"
+                android:textSize="@dimen/text_size_normal" />
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:columnCount="2"
+                android:rowCount="3">
+
+                <TextView
+                    android:padding="16dp"
+                    android:text="@{`做错`+String.valueOf(count.errorNum)}"
+                    android:textColor="@color/text_error_red"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <TextView
+                    android:padding="16dp"
+                    android:text="@{`占`+String.valueOf(decimalFormat.format(Float.valueOf(count.errorNum)/Float.valueOf(count.totalNum)*100))+`%`}"
+                    android:textColor="@color/text_error_red"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <TextView
+                    android:padding="16dp"
+                    android:text="@{`做对`+String.valueOf(count.correctNum)}"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <TextView
+                    android:padding="16dp"
+                    android:text="@{`占`+String.valueOf(decimalFormat.format(Float.valueOf(count.correctNum)/Float.valueOf(count.totalNum)*100))+`%`}"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <TextView
+                    android:padding="16dp"
+                    android:text="@{`未做`+String.valueOf(count.undoNum)}"
+                    android:textColor="@color/text_gray_blue"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <TextView
+                    android:padding="16dp"
+                    android:text="@{`占`+String.valueOf(decimalFormat.format(Float.valueOf(count.undoNum)/Float.valueOf(count.totalNum)*100))+`%`}"
+                    android:textColor="@color/text_gray_blue"
+                    android:textSize="@dimen/text_size_normal" />
+            </GridLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

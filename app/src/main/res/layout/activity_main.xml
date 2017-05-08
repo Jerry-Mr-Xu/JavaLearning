@@ -1,111 +1,251 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/base_gray"
-    android:columnCount="3"
-    android:rowCount="4">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/rl_exam"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_columnSpan="2"
-        android:layout_columnWeight="1"
-        android:layout_rowSpan="2"
-        android:layout_rowWeight="1"
-        android:background="@color/base_white"
-        android:gravity="center"
-        android:orientation="vertical">
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/action_bar" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="8dp"
-            android:drawableTop="@drawable/ic_exam"
-            android:gravity="center"
-            android:text="@string/exam"
-            android:textColor="@color/text_dark_blue"
-            android:textSize="@dimen/text_size_huge" />
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/action_bar"
+        android:background="@color/base_gray"
+        android:columnCount="3"
+        android:rowCount="4">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:id="@+id/ll_exam"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnSpan="2"
+            android:layout_columnWeight="1"
+            android:layout_rowSpan="2"
+            android:layout_rowWeight="1"
+            android:background="@color/base_white"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_main_exam_btn"
-                android:paddingBottom="6dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="6dp"
-                android:text="@string/exam_record"
+                android:drawablePadding="8dp"
+                android:drawableTop="@drawable/ic_exam"
+                android:gravity="center"
+                android:text="@string/exam"
                 android:textColor="@color/text_dark_blue"
-                android:textSize="@dimen/text_size_normal" />
+                android:textSize="@dimen/text_size_huge" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_exam_record"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_main_exam_btn"
+                    android:clickable="true"
+                    android:paddingBottom="6dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="6dp"
+                    android:text="@string/exam_record"
+                    android:textColor="@color/text_dark_blue"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <TextView
+                    android:id="@+id/tv_exam_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:background="@drawable/bg_main_exam_btn"
+                    android:clickable="true"
+                    android:paddingBottom="6dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="6dp"
+                    android:text="@string/exam_count"
+                    android:textColor="@color/text_dark_blue"
+                    android:textSize="@dimen/text_size_normal" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_collection"
+            style="@style/CubeStyle"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="1dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:contentDescription="@string/collection"
+                android:src="@drawable/ic_collection" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:background="@drawable/bg_main_exam_btn"
-                android:paddingBottom="6dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="6dp"
-                android:text="@string/exam_count"
+                android:layout_marginTop="16dp"
+                android:text="@string/my_collection"
                 android:textColor="@color/text_dark_blue"
                 android:textSize="@dimen/text_size_normal" />
         </LinearLayout>
-    </LinearLayout>
 
-    <TextView
-        style="@style/TextViewCubeStyle"
-        android:layout_marginBottom="1dp"
-        android:layout_marginLeft="1dp"
-        android:drawableTop="@drawable/ic_collection"
-        android:text="@string/collection" />
+        <LinearLayout
+            android:id="@+id/ll_error"
+            style="@style/CubeStyle"
+            android:layout_marginLeft="1dp"
+            android:orientation="vertical">
 
-    <TextView
-        style="@style/TextViewCubeStyle"
-        android:layout_marginLeft="1dp"
-        android:drawableTop="@drawable/ic_error"
-        android:text="@string/error" />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:contentDescription="@string/collection"
+                android:src="@drawable/ic_error" />
 
-    <TextView
-        style="@style/TextViewCubeStyle"
-        android:layout_marginTop="1dp"
-        android:text="@string/study_in_order" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/my_error"
+                android:textColor="@color/text_dark_blue"
+                android:textSize="@dimen/text_size_normal" />
+        </LinearLayout>
 
-    <TextView
-        style="@style/TextViewCubeStyle"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="1dp"
-        android:text="@string/study_in_random" />
+        <LinearLayout
+            android:id="@+id/ll_study_in_order"
+            style="@style/CubeStyle"
+            android:layout_marginTop="1dp"
+            android:orientation="vertical">
 
-    <TextView
-        style="@style/TextViewCubeStyle"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="1dp"
-        android:text="@string/study_in_point" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+                android:contentDescription="@string/collection"
+                android:src="@drawable/ic_study_in_order" />
 
-    <TextView
-        style="@style/TextViewCubeStyle"
-        android:layout_marginTop="1dp"
-        android:text="@string/test_in_order" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/study_in_order"
+                android:textColor="@color/text_dark_blue"
+                android:textSize="@dimen/text_size_normal" />
+        </LinearLayout>
 
-    <TextView
-        style="@style/TextViewCubeStyle"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="1dp"
-        android:text="@string/test_in_random" />
+        <LinearLayout
+            android:id="@+id/ll_study_in_random"
+            style="@style/CubeStyle"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="1dp"
+            android:orientation="vertical">
 
-    <TextView
-        style="@style/TextViewCubeStyle"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="1dp"
-        android:text="@string/test_in_point" />
-</GridLayout>
+            <ImageView
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:contentDescription="@string/collection"
+                android:src="@drawable/ic_study_in_random" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/study_in_random"
+                android:textColor="@color/text_dark_blue"
+                android:textSize="@dimen/text_size_normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_study_in_point"
+            style="@style/CubeStyle"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="1dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:contentDescription="@string/collection"
+                android:src="@drawable/ic_study_in_point" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/study_in_point"
+                android:textColor="@color/text_dark_blue"
+                android:textSize="@dimen/text_size_normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_test_in_order"
+            style="@style/CubeStyle"
+            android:layout_marginTop="1dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:contentDescription="@string/collection"
+                android:src="@drawable/ic_test_in_order" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/test_in_order"
+                android:textColor="@color/text_dark_blue"
+                android:textSize="@dimen/text_size_normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_test_in_random"
+            style="@style/CubeStyle"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="1dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:contentDescription="@string/collection"
+                android:src="@drawable/ic_test_in_random" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/test_in_random"
+                android:textColor="@color/text_dark_blue"
+                android:textSize="@dimen/text_size_normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_test_in_point"
+            style="@style/CubeStyle"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="1dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:contentDescription="@string/collection"
+                android:src="@drawable/ic_test_in_point" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/test_in_point"
+                android:textColor="@color/text_dark_blue"
+                android:textSize="@dimen/text_size_normal" />
+        </LinearLayout>
+    </GridLayout>
+</RelativeLayout>

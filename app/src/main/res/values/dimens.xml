@@ -2,5 +2,7 @@
 <resources>
     <dimen name="text_size_huge">30sp</dimen>
     <dimen name="text_size_big">25sp</dimen>
+    <dimen name="text_size_title">22sp</dimen>
+    <dimen name="text_size_little_big">20sp</dimen>
     <dimen name="text_size_normal">18sp</dimen>
 </resources>
