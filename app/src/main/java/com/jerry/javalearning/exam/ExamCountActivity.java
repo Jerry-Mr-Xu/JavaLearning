@@ -11,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jerry.javalearning.R;
+import com.jerry.javalearning.base.BaseActivity;
+import com.jerry.javalearning.base.BaseApplication;
 import com.jerry.javalearning.databinding.ActivityCountBinding;
+import com.litesuits.orm.db.assit.QueryBuilder;
 
 import java.text.DecimalFormat;
 
@@ -21,7 +24,7 @@ import java.text.DecimalFormat;
  * Created by Jerry on 2017/5/8.
  */
 
-public class ExamCountActivity extends AppCompatActivity
+public class ExamCountActivity extends BaseActivity
 {
 	private ActivityCountBinding binding;
 
@@ -31,37 +34,23 @@ public class ExamCountActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		binding = DataBindingUtil.setContentView(this, R.layout.activity_count);
 
-		initView();
+		initActionBar();
 		initData();
 	}
 
-	private void initView()
+	@Override
+	protected int getContentViewId()
 	{
-		ImageView ivActionBarBack = (ImageView) findViewById(R.id.iv_action_bar_back);
-		TextView tvActionBarTitle = (TextView) findViewById(R.id.tv_action_bar_title);
-
-		if (ivActionBarBack != null)
-		{
-			ivActionBarBack.setVisibility(isHaveActionBarBack() ? View.VISIBLE : View.GONE);
-			ivActionBarBack.setOnClickListener(new View.OnClickListener()
-			{
-				@Override
-				public void onClick(View view)
-				{
-					finish();
-				}
-			});
-		}
-		if (tvActionBarTitle != null)
-		{
-			tvActionBarTitle.setText(getActionBarTitle());
-		}
+		return R.layout.activity_count;
 	}
 
 	private void initData()
 	{
 		ExamCountModule count = new ExamCountModule();
-		SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getDatabasePath("JavaLearning.db"), null);
+
+		count = BaseApplication.getLiteOrm().query(new QueryBuilder<ExamCountModule>(ExamCountModule.class)).get(0);
+
+		/*SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getDatabasePath("JavaLearning.db"), null);
 		Cursor cursor = db.rawQuery("select sum(test_total_num),sum(test_correct_num),sum(test_error_num),sum(test_undo_num) from test_table", null);
 		while (cursor.moveToNext())
 		{
@@ -73,14 +62,16 @@ public class ExamCountActivity extends AppCompatActivity
 		cursor.close();
 		db.close();
 		binding.setCount(count);
-		binding.setDecimalFormat(new DecimalFormat("00.00"));
+		binding.setDecimalFormat(new DecimalFormat("00.00"));*/
 	}
 
+	@Override
 	protected boolean isHaveActionBarBack()
 	{
 		return true;
 	}
 
+	@Override
 	protected String getActionBarTitle()
 	{
 		return "考试统计";

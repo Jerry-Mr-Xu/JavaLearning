@@ -25,6 +25,12 @@ public abstract class BaseActivity extends AppCompatActivity
 
 		setContentView(getContentViewId());
 
+		// 初始化ActionBar
+		initActionBar();
+	}
+
+	protected void initActionBar()
+	{
 		ImageView ivActionBarBack = (ImageView) findViewById(R.id.iv_action_bar_back);
 		TextView tvActionBarTitle = (TextView) findViewById(R.id.tv_action_bar_title);
 

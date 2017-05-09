@@ -1,6 +1,7 @@
 package com.jerry.javalearning.base;
 
 import android.app.Application;
+import android.os.Environment;
 import android.util.Log;
 
 import com.litesuits.orm.LiteOrm;
@@ -19,6 +20,7 @@ import java.io.OutputStream;
 
 public class BaseApplication extends Application
 {
+	public static final String TAG = BaseApplication.class.getName();
 	private static final String DB_NAME = "JavaLearning.db";
 
 	private static LiteOrm liteOrm;
@@ -35,11 +37,6 @@ public class BaseApplication extends Application
 	{
 		super.onCreate();
 		baseApplication = this;
-		if (liteOrm == null)
-		{
-			liteOrm = LiteOrm.newSingleInstance(baseApplication, DB_NAME);
-			liteOrm.setDebugged(true);
-		}
 
 		try
 		{
@@ -48,25 +45,31 @@ public class BaseApplication extends Application
 		catch (IOException e)
 		{
 
-			Log.e("Error:initDB()", e.getMessage());
-			e.printStackTrace();
+			Log.e(TAG, "Error:initDB()" + e.getMessage());
 		}
+
+		getLiteOrm();
 	}
 
+	/**
+	 * 初始化数据库
+	 *
+	 * @throws IOException IO流异常
+	 */
 	private void initDB() throws IOException
 	{
-		File file = getDatabasePath("JavaLearning.db");
+		// 获取数据库位置
+		File file = getDatabasePath(DB_NAME);
 		InputStream inputStream = null;
 		OutputStream outputStream = null;
 
-//		file.delete();
+		Log.e(TAG, "initDB: file.getPath()" + file.getPath());
+
 		//通过IO流的方式，将assets目录下的数据库文件，写入到SD卡中。
 		if (!file.exists())
 		{
 			try
 			{
-				file.createNewFile();
-
 				inputStream = getClass().getClassLoader().getResourceAsStream("assets/" + DB_NAME);
 				outputStream = new FileOutputStream(file);
 
@@ -78,21 +81,14 @@ public class BaseApplication extends Application
 					outputStream.write(buffer, 0, len);
 				}
 
-				Log.e("initDB:", "Complete");
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
+				Log.e(TAG, "initDB:" + "Complete");
 			}
 			finally
 			{
-
 				if (outputStream != null)
 				{
-
 					outputStream.flush();
 					outputStream.close();
-
 				}
 				if (inputStream != null)
 				{

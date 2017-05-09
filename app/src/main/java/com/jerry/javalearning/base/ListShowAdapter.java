@@ -69,7 +69,7 @@ public class ListShowAdapter extends RecyclerView.Adapter<ListShowAdapter.ItemVi
 
 	public interface OnItemClickListener
 	{
-		public void onItemClick(ListShowAdapter adapter, int position);
+		void onItemClick(ListShowAdapter adapter, int position);
 	}
 
 	class ItemViewHolder extends RecyclerView.ViewHolder
