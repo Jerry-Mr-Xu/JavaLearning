@@ -48,8 +48,6 @@ public class ExamCountActivity extends BaseActivity
 	{
 		ExamCountModule count = new ExamCountModule();
 
-		count = BaseApplication.getLiteOrm().query(new QueryBuilder<ExamCountModule>(ExamCountModule.class)).get(0);
-
 		SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getDatabasePath("JavaLearning.db"), null);
 		Cursor cursor = db.rawQuery("select sum(test_total_num),sum(test_correct_num),sum(test_error_num),sum(test_undo_num) from test_table", null);
 		while (cursor.moveToNext())
