@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,10 @@ import com.jerry.javalearning.module.PointModule;
 import com.jerry.javalearning.module.QuestionModule;
 import com.jerry.javalearning.point.ShowPointActivity;
 import com.litesuits.orm.db.assit.QueryBuilder;
+import com.mingle.entity.MenuEntity;
+import com.mingle.sweetpick.BlurEffect;
+import com.mingle.sweetpick.RecyclerViewDelegate;
+import com.mingle.sweetpick.SweetSheet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +46,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 	private LinearLayout llTestInOrder;
 	private LinearLayout llTestInRandom;
 	private LinearLayout llTestInPoint;
+
+	private SweetSheet ssSelectQuestionNum;
+	private List<MenuEntity> questionNumList = new ArrayList<>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -97,6 +105,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 		llTestInOrder = (LinearLayout) findViewById(R.id.ll_test_in_order);
 		llTestInRandom = (LinearLayout) findViewById(R.id.ll_test_in_random);
 		llTestInPoint = (LinearLayout) findViewById(R.id.ll_test_in_point);
+
+		ssSelectQuestionNum = new SweetSheet((ViewGroup) findViewById(R.id.rl_root));
+		ssSelectQuestionNum.setDelegate(new RecyclerViewDelegate(true));
+		ssSelectQuestionNum.setBackgroundEffect(new BlurEffect(8));
 	}
 
 	@Override
@@ -138,11 +150,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 				break;
 
 			case R.id.ll_study_in_order:
-				intent.setClass(MainActivity.this, LearningActivity.class);
-				intent.putExtra("question_list", BaseApplication.getLiteOrm().query(QuestionModule.class));
-				intent.putExtra("is_study", true);
-				intent.putExtra("title", "顺序学习");
-				startActivity(intent);
+				if (!ssSelectQuestionNum.isShow())
+				{
+					ssSelectQuestionNum.setMenuList(questionNumList);
+					ssSelectQuestionNum.show();
+				}
+				//				intent.setClass(MainActivity.this, LearningActivity.class);
+				//				intent.putExtra("question_list", BaseApplication.getLiteOrm().query(QuestionModule.class));
+				//				intent.putExtra("is_study", true);
+				//				intent.putExtra("title", "顺序学习");
+				//				startActivity(intent);
 				break;
 
 			case R.id.ll_study_in_random:
@@ -162,11 +179,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 				break;
 
 			case R.id.ll_test_in_order:
-				intent.setClass(MainActivity.this, LearningActivity.class);
-				intent.putExtra("question_list", BaseApplication.getLiteOrm().query(new QueryBuilder<>(QuestionModule.class)));
-				intent.putExtra("is_study", false);
-				intent.putExtra("title", "顺序练习");
-				startActivity(intent);
+				if (ssSelectQuestionNum.isShow())
+				{
+					ssSelectQuestionNum.dismiss();
+				}
+				ssSelectQuestionNum.setMenuList(questionNumList);
+				ssSelectQuestionNum.toggle();
+				//				intent.setClass(MainActivity.this, LearningActivity.class);
+				//				intent.putExtra("question_list", BaseApplication.getLiteOrm().query(new QueryBuilder<>(QuestionModule.class)));
+				//				intent.putExtra("is_study", false);
+				//				intent.putExtra("title", "顺序练习");
+				//				startActivity(intent);
 				break;
 
 			case R.id.ll_test_in_random:
