@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jerry.javalearning.BR;
+import com.jerry.javalearning.R;
 import com.jerry.javalearning.module.BaseItemModule;
 
 import java.text.DecimalFormat;
@@ -22,7 +23,8 @@ import java.util.List;
 public class ListShowAdapter extends RecyclerView.Adapter<ListShowAdapter.ItemViewHolder> implements View.OnClickListener
 {
 	private List<BaseItemModule> baseItemList;
-	private OnItemClickListener listener;
+	private OnItemClickListener onItemClickListener;
+	private OnItemDeleteClickListener onItemDeleteClickListener;
 
 	public ListShowAdapter(List<BaseItemModule> baseItemList)
 	{
@@ -56,20 +58,42 @@ public class ListShowAdapter extends RecyclerView.Adapter<ListShowAdapter.ItemVi
 	@Override
 	public void onClick(View view)
 	{
-		if (listener != null)
+		switch (view.getId())
 		{
-			listener.onItemClick(ListShowAdapter.this, (Integer) view.getTag());
+			case R.id.tv_point:
+				if (onItemClickListener != null)
+				{
+					onItemClickListener.onItemClick(ListShowAdapter.this, (Integer) view.getTag());
+				}
+				break;
+
+			case R.id.iv_item_delete:
+				if (onItemDeleteClickListener != null)
+				{
+					onItemDeleteClickListener.onItemDeleteClick(ListShowAdapter.this, (Integer) ((View) view.getParent()).getTag());
+				}
+				break;
 		}
 	}
 
-	public void setOnItemClickListener(OnItemClickListener listener)
+	public void setOnItemClickListener(OnItemClickListener onItemClickListener)
 	{
-		this.listener = listener;
+		this.onItemClickListener = onItemClickListener;
+	}
+
+	public void setOnItemDeleteClickListener(OnItemDeleteClickListener onItemDeleteClickListener)
+	{
+		this.onItemDeleteClickListener = onItemDeleteClickListener;
 	}
 
 	public interface OnItemClickListener
 	{
 		void onItemClick(ListShowAdapter adapter, int position);
+	}
+
+	public interface OnItemDeleteClickListener
+	{
+		void onItemDeleteClick(ListShowAdapter adapter, int position);
 	}
 
 	class ItemViewHolder extends RecyclerView.ViewHolder
@@ -81,6 +105,7 @@ public class ListShowAdapter extends RecyclerView.Adapter<ListShowAdapter.ItemVi
 			super(binding.getRoot());
 			this.binding = binding;
 			this.binding.setVariable(BR.listener, ListShowAdapter.this);
+			this.binding.setVariable(BR.clickListener, ListShowAdapter.this);
 		}
 
 		void bindTo(BaseItemModule item, int position)

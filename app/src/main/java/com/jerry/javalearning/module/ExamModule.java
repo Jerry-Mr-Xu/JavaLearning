@@ -15,31 +15,31 @@ import java.sql.Time;
  * Created by Jerry on 2017/5/5.
  */
 
-@Table("test_table")
+@Table("exam_table")
 public class ExamModule implements Serializable, BaseItemModule
 {
 	@PrimaryKey(AssignType.AUTO_INCREMENT)
 	public int id;
 
-	@Column("test_total_time")
+	@Column("exam_total_time")
 	public String totalTime;
 
-	@Column("test_my_time")
+	@Column("exam_my_time")
 	public String myTime;
 
-	@Column("test_total_num")
+	@Column("exam_total_num")
 	public int totalNum;
 
-	@Column("test_correct_num")
+	@Column("exam_correct_num")
 	public int correctNum;
 
-	@Column("test_error_num")
+	@Column("exam_error_num")
 	public int errorNum;
 
-	@Column("test_undo_num")
+	@Column("exam_undo_num")
 	public int undoNum;
 
-	@Column("test_do_date")
+	@Column("exam_do_date")
 	public String doDate;
 
 	@Override

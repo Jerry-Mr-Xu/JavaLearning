@@ -49,12 +49,18 @@ public class QuestionModule implements Serializable
 	@Column("error_num")
 	public int errorNum;
 
+	@Column("is_study")
+	public int isStudy;
+
+	@Column("is_test")
+	public int isTest;
+
 	@Ignore
 	public boolean isShowCorrect;
 
 	@Override
 	public String toString()
 	{
-		return "QuestionModule{" + "id=" + id + ", type=" + type + ", question='" + question + '\'' + ", answer1='" + answer1 + '\'' + ", answer2='" + answer2 + '\'' + ", answer3='" + answer3 + '\'' + ", answer4='" + answer4 + '\'' + ", correctAnswer=" + correctAnswer + ", myAnswer=" + myAnswer + ", isCollected=" + isCollected + ", isDeleted=" + isDeleted + ", errorNum=" + errorNum + ", isShowCorrect=" + isShowCorrect + '}';
+		return "QuestionModule{" + "id=" + id + ", type=" + type + ", question='" + question + '\'' + ", answer1='" + answer1 + '\'' + ", answer2='" + answer2 + '\'' + ", answer3='" + answer3 + '\'' + ", answer4='" + answer4 + '\'' + ", correctAnswer=" + correctAnswer + ", myAnswer=" + myAnswer + ", isCollected=" + isCollected + ", isDeleted=" + isDeleted + ", errorNum=" + errorNum + ", isStudy=" + isStudy + ", isTest=" + isTest + ", isShowCorrect=" + isShowCorrect + '}';
 	}
 }

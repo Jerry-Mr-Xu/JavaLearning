@@ -31,5 +31,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/lite-orm-1.9.2.jar')
     compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
     compile project(path: ':sweetsheet')
 }

@@ -23,6 +23,8 @@ import com.jerry.javalearning.module.PointModule;
 import com.jerry.javalearning.module.QuestionModule;
 import com.jerry.javalearning.point.ShowPointActivity;
 import com.litesuits.orm.db.assit.QueryBuilder;
+import com.litesuits.orm.db.model.ColumnsValue;
+import com.litesuits.orm.db.model.ConflictAlgorithm;
 import com.mingle.entity.MenuEntity;
 import com.mingle.sweetpick.BlurEffect;
 import com.mingle.sweetpick.RecyclerViewDelegate;
@@ -48,7 +50,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 	private LinearLayout llTestInPoint;
 
 	private SweetSheet ssSelectQuestionNum;
-	private List<MenuEntity> questionNumList = new ArrayList<>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -114,7 +115,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 	@Override
 	public void onClick(View view)
 	{
-		Intent intent = new Intent();
+		final Intent intent = new Intent();
 		switch (view.getId())
 		{
 			case R.id.ll_exam:
@@ -152,14 +153,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 			case R.id.ll_study_in_order:
 				if (!ssSelectQuestionNum.isShow())
 				{
-					ssSelectQuestionNum.setMenuList(questionNumList);
-					ssSelectQuestionNum.show();
+					showNoStudyQuestion();
 				}
-				//				intent.setClass(MainActivity.this, LearningActivity.class);
-				//				intent.putExtra("question_list", BaseApplication.getLiteOrm().query(QuestionModule.class));
-				//				intent.putExtra("is_study", true);
-				//				intent.putExtra("title", "顺序学习");
-				//				startActivity(intent);
 				break;
 
 			case R.id.ll_study_in_random:
@@ -179,17 +174,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 				break;
 
 			case R.id.ll_test_in_order:
-				if (ssSelectQuestionNum.isShow())
+				if (!ssSelectQuestionNum.isShow())
 				{
-					ssSelectQuestionNum.dismiss();
+					showNoTestQuestion();
 				}
-				ssSelectQuestionNum.setMenuList(questionNumList);
-				ssSelectQuestionNum.toggle();
-				//				intent.setClass(MainActivity.this, LearningActivity.class);
-				//				intent.putExtra("question_list", BaseApplication.getLiteOrm().query(new QueryBuilder<>(QuestionModule.class)));
-				//				intent.putExtra("is_study", false);
-				//				intent.putExtra("title", "顺序练习");
-				//				startActivity(intent);
 				break;
 
 			case R.id.ll_test_in_random:
@@ -207,6 +195,105 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 				intent.putExtra("title", "专项练习");
 				startActivity(intent);
 				break;
+		}
+	}
+
+	/**
+	 * 显示未学习过的题数选择
+	 */
+	private void showNoStudyQuestion()
+	{
+		// 获取未学习过的问题数
+		int questionTotalNum = (int) BaseApplication.getLiteOrm().queryCount(new QueryBuilder<>(QuestionModule.class).where("is_study = 0"));
+		// 如果没有未学习过的则重新开始学习
+		if (questionTotalNum == 0)
+		{
+			ColumnsValue changeValue = new ColumnsValue(new String[]{"is_study"}, new Integer[]{0});
+			List<QuestionModule> questionList = BaseApplication.getLiteOrm().query(QuestionModule.class);
+			BaseApplication.getLiteOrm().update(questionList, changeValue, ConflictAlgorithm.Replace);
+			questionTotalNum = questionList.size();
+		}
+
+		List<MenuEntity> questionNumList = new ArrayList<>();
+		// 添加学习题数列表不超过总题数
+		for (int i = 0; i < ((questionTotalNum % 10 == 0) ? (questionTotalNum / 10) : (questionTotalNum / 10 + 1)); i++)
+		{
+			MenuEntity singleQuestionNum = new MenuEntity();
+			singleQuestionNum.title = "" + (i + 1) * 10;
+			singleQuestionNum.titleColor = getResources().getColor(R.color.text_dark_blue);
+			questionNumList.add(singleQuestionNum);
+		}
+
+		ssSelectQuestionNum.setMenuList(questionNumList);
+		ssSelectQuestionNum.setOnMenuItemClickListener(new SweetSheet.OnMenuItemClickListener()
+		{
+			@Override
+			public boolean onItemClick(int position, MenuEntity menuEntity)
+			{
+				Intent intent = new Intent(MainActivity.this, LearningActivity.class);
+				intent.putExtra("question_list", BaseApplication.getLiteOrm().query(new QueryBuilder<>(QuestionModule.class).where("is_study = 0").limit(0, (position + 1) * 10)));
+				intent.putExtra("is_study", true);
+				intent.putExtra("title", "顺序学习");
+				startActivity(intent);
+				return true;
+			}
+		});
+		ssSelectQuestionNum.show();
+	}
+
+	/**
+	 * 显示未练习过的题数选择
+	 */
+	private void showNoTestQuestion()
+	{
+		// 获取未练习过的问题数
+		int questionTotalNum = (int) BaseApplication.getLiteOrm().queryCount(new QueryBuilder<>(QuestionModule.class).where("is_test = 0"));
+		// 如果没有未练习过的则重新开始练习
+		if (questionTotalNum == 0)
+		{
+			ColumnsValue changeValue = new ColumnsValue(new String[]{"is_test"}, new Integer[]{0});
+			List<QuestionModule> questionList = BaseApplication.getLiteOrm().query(QuestionModule.class);
+			BaseApplication.getLiteOrm().update(questionList, changeValue, ConflictAlgorithm.Replace);
+			questionTotalNum = questionList.size();
+		}
+
+		List<MenuEntity> questionNumList = new ArrayList<>();
+		// 添加练习题数列表不超过总题数
+		for (int i = 0; i < ((questionTotalNum % 10 == 0) ? (questionTotalNum / 10) : (questionTotalNum / 10 + 1)); i++)
+		{
+			MenuEntity singleQuestionNum = new MenuEntity();
+			singleQuestionNum.title = "" + (i + 1) * 10;
+			singleQuestionNum.titleColor = getResources().getColor(R.color.text_dark_blue);
+			questionNumList.add(singleQuestionNum);
+		}
+
+		ssSelectQuestionNum.setMenuList(questionNumList);
+		ssSelectQuestionNum.setOnMenuItemClickListener(new SweetSheet.OnMenuItemClickListener()
+		{
+			@Override
+			public boolean onItemClick(int position, MenuEntity menuEntity)
+			{
+				Intent intent = new Intent(MainActivity.this, LearningActivity.class);
+				intent.putExtra("question_list", BaseApplication.getLiteOrm().query(new QueryBuilder<>(QuestionModule.class).where("is_test = 0").limit(0, (position + 1) * 10)));
+				intent.putExtra("is_study", false);
+				intent.putExtra("title", "顺序练习");
+				startActivity(intent);
+				return true;
+			}
+		});
+		ssSelectQuestionNum.show();
+	}
+
+	@Override
+	public void onBackPressed()
+	{
+		if (ssSelectQuestionNum.isShow())
+		{
+			ssSelectQuestionNum.dismiss();
+		}
+		else
+		{
+			super.onBackPressed();
 		}
 	}
 }

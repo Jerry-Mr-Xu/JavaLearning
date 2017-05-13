@@ -6,12 +6,15 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.jerry.javalearning.R;
 import com.jerry.javalearning.base.BaseActivity;
+import com.jerry.javalearning.base.BaseApplication;
 import com.jerry.javalearning.base.ListShowAdapter;
 import com.jerry.javalearning.module.BaseItemModule;
 import com.jerry.javalearning.module.ExamModule;
+import com.jerry.javalearning.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +25,7 @@ import java.util.List;
  * Created by Jerry on 2017/5/8.
  */
 
-public class ExamRecordActivity extends BaseActivity
+public class ExamRecordActivity extends BaseActivity implements ListShowAdapter.OnItemDeleteClickListener
 {
 	public static final String TAG = ExamRecordActivity.class.getName();
 
@@ -42,8 +45,22 @@ public class ExamRecordActivity extends BaseActivity
 	private void initData()
 	{
 		baseItemList = new ArrayList<BaseItemModule>((ArrayList<ExamModule>) getIntent().getSerializableExtra("item_list"));
+		if (baseItemList.size() == 0)
+		{
+			showNoRecord();
+		}
 		adapter = new ListShowAdapter(baseItemList);
+		adapter.setOnItemDeleteClickListener(ExamRecordActivity.this);
 		rvList.setAdapter(adapter);
+	}
+
+	/**
+	 * 没有记录
+	 */
+	private void showNoRecord()
+	{
+		// TODO
+		ToastUtil.showToast("没有考试记录哦", Toast.LENGTH_SHORT);
 	}
 
 	private void initView()
@@ -69,5 +86,18 @@ public class ExamRecordActivity extends BaseActivity
 	protected String getActionBarTitle()
 	{
 		return "考试记录";
+	}
+
+	@Override
+	public void onItemDeleteClick(ListShowAdapter adapter, int position)
+	{
+		BaseApplication.getLiteOrm().delete(baseItemList.get(position));
+		baseItemList.remove(position);
+		adapter.notifyDataSetChanged();
+
+		if (baseItemList.size() == 0)
+		{
+			showNoRecord();
+		}
 	}
 }

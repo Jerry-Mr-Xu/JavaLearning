@@ -240,10 +240,15 @@ public class LearningActivity extends BaseActivity implements RadioGroup.OnCheck
 	@Override
 	public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i)
 	{
-		int selectPosition = (int) radioGroup.getTag();
+		int selectPosition = vpQuestion.getCurrentItem();
 		if (isStudy)
 		{
 			((QuestionFragment) questionFragmentList.get(selectPosition)).showCorrectAnswer();
+			questionList.get(selectPosition).isStudy = 1;
+		}
+		else
+		{
+			questionList.get(selectPosition).isTest = 1;
 		}
 		switch (i)
 		{
@@ -291,6 +296,8 @@ public class LearningActivity extends BaseActivity implements RadioGroup.OnCheck
 				}
 				break;
 		}
+
+		BaseApplication.getLiteOrm().update(questionList.get(selectPosition));
 	}
 
 	private void showNextPage()
