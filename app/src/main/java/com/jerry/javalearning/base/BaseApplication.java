@@ -1,7 +1,6 @@
 package com.jerry.javalearning.base;
 
 import android.app.Application;
-import android.os.Environment;
 import android.util.Log;
 
 import com.litesuits.orm.LiteOrm;
@@ -63,7 +62,16 @@ public class BaseApplication extends Application
 		InputStream inputStream = null;
 		OutputStream outputStream = null;
 
-		Log.e(TAG, "initDB: file.getPath()" + file.getPath());
+		File parentFile = file.getParentFile();
+		if (!parentFile.exists())
+		{
+			if (!parentFile.mkdir())
+			{
+				Log.e(TAG, "initDB: parentFile.mkdir() Error");
+			}
+		}
+
+		Log.i(TAG, "initDB: file.getPath()" + file.getPath());
 
 		//通过IO流的方式，将assets目录下的数据库文件，写入到SD卡中。
 		if (!file.exists())
@@ -81,7 +89,7 @@ public class BaseApplication extends Application
 					outputStream.write(buffer, 0, len);
 				}
 
-				Log.e(TAG, "initDB:" + "Complete");
+				Log.i(TAG, "initDB:" + "Complete");
 			}
 			finally
 			{

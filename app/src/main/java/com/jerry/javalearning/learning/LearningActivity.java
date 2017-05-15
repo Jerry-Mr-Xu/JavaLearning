@@ -120,7 +120,7 @@ public class LearningActivity extends BaseActivity implements RadioGroup.OnCheck
 		cbCollectOption.setChecked(!cbCollectOption.isChecked());
 		questionList.get(vpQuestion.getCurrentItem()).isCollected = cbCollectOption.isChecked();
 		BaseApplication.getLiteOrm().update(questionList.get(vpQuestion.getCurrentItem()));
-		Log.d(TAG, "collectQuestion: liteOrm update(" + questionList.get(vpQuestion.getCurrentItem()).toString() + ")");
+		Log.i(TAG, "collectQuestion: liteOrm update(" + questionList.get(vpQuestion.getCurrentItem()).toString() + ")");
 	}
 
 	private void initData()
@@ -334,7 +334,7 @@ public class LearningActivity extends BaseActivity implements RadioGroup.OnCheck
 			}
 		}
 		BaseApplication.getLiteOrm().update(questionList);
-		Log.d(TAG, "showFinishPage: liteOrm update(" + questionList.toString() + ")");
+		Log.i(TAG, "showFinishPage: liteOrm update(" + questionList.toString() + ")");
 
 		if (isExam)
 		{
@@ -348,7 +348,7 @@ public class LearningActivity extends BaseActivity implements RadioGroup.OnCheck
 			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd", Locale.CHINA);
 			examModule.doDate = format.format(new Date());
 			long insertLine = BaseApplication.getLiteOrm().insert(examModule);
-			Log.d(TAG, "showFinishPage: liteOrm insert(" + examModule.toString() + ")" + "return " + insertLine);
+			Log.i(TAG, "showFinishPage: liteOrm insert(" + examModule.toString() + ")" + "return " + insertLine);
 		}
 
 		Bundle bundle = new Bundle();
