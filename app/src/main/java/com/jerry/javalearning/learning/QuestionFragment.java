@@ -1,10 +1,8 @@
 package com.jerry.javalearning.learning;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +11,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.jerry.javalearning.R;
-import com.jerry.javalearning.base.BaseApplication;
 import com.jerry.javalearning.module.QuestionModule;
 
 import java.util.ArrayList;
@@ -34,7 +31,6 @@ public class QuestionFragment extends Fragment
 	private List<RadioButton> rbAnswerList = new ArrayList<>();
 
 	private QuestionModule questionModule;
-	private boolean isShowCorrectAnswer;
 
 	private int position;
 	private RadioGroup.OnCheckedChangeListener listener;
@@ -56,7 +52,6 @@ public class QuestionFragment extends Fragment
 		{
 			Bundle bundle = getArguments();
 			questionModule = (QuestionModule) bundle.getSerializable("question");
-			isShowCorrectAnswer = bundle.getBoolean("is_show_correct_answer");
 			position = bundle.getInt("position");
 		}
 

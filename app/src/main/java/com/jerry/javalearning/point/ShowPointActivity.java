@@ -8,16 +8,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.jerry.javalearning.R;
 import com.jerry.javalearning.base.BaseActivity;
-import com.jerry.javalearning.base.BaseApplication;
 import com.jerry.javalearning.base.ListShowAdapter;
 import com.jerry.javalearning.learning.LearningActivity;
 import com.jerry.javalearning.module.BaseItemModule;
 import com.jerry.javalearning.module.PointModule;
 import com.jerry.javalearning.module.QuestionModule;
+import com.jerry.javalearning.utils.ObjectCastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,6 @@ public class ShowPointActivity extends BaseActivity implements ListShowAdapter.O
 	public static final String TAG = ShowPointActivity.class.getName();
 
 	private RecyclerView rvList;
-	private ListShowAdapter adapter;
 	private List<BaseItemModule> itemList;
 
 	private boolean isStudy;
@@ -50,11 +48,12 @@ public class ShowPointActivity extends BaseActivity implements ListShowAdapter.O
 
 	private void initData()
 	{
-		itemList = new ArrayList<BaseItemModule>((ArrayList<PointModule>) getIntent().getSerializableExtra("item_list"));
+		ArrayList<PointModule> pointList = ObjectCastUtil.cast(getIntent().getSerializableExtra("item_list"));
+		itemList = new ArrayList<BaseItemModule>(pointList);
 		isStudy = getIntent().getBooleanExtra("is_study", false);
 		title = getIntent().getStringExtra("title");
 
-		adapter = new ListShowAdapter(itemList);
+		ListShowAdapter adapter = new ListShowAdapter(itemList);
 		adapter.setOnItemClickListener(this);
 		rvList.setAdapter(adapter);
 	}

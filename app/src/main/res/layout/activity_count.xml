@@ -59,7 +59,7 @@
 
                 <TextView
                     android:padding="16dp"
-                    android:text="@{`占`+String.valueOf(decimalFormat.format(Float.valueOf(count.errorNum)/Float.valueOf(count.totalNum)*100))+`%`}"
+                    android:text="@{`占`+(count.totalNum==0?`0`:String.valueOf(decimalFormat.format(Float.valueOf(count.errorNum)/Float.valueOf(count.totalNum)*100)))+`%`}"
                     android:textColor="@color/text_error_red"
                     android:textSize="@dimen/text_size_normal" />
 
@@ -71,7 +71,7 @@
 
                 <TextView
                     android:padding="16dp"
-                    android:text="@{`占`+String.valueOf(decimalFormat.format(Float.valueOf(count.correctNum)/Float.valueOf(count.totalNum)*100))+`%`}"
+                    android:text="@{`占`+(count.totalNum == 0?`0`:String.valueOf(decimalFormat.format(Float.valueOf(count.correctNum)/Float.valueOf(count.totalNum)*100)))+`%`}"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/text_size_normal" />
 
@@ -83,7 +83,7 @@
 
                 <TextView
                     android:padding="16dp"
-                    android:text="@{`占`+String.valueOf(decimalFormat.format(Float.valueOf(count.undoNum)/Float.valueOf(count.totalNum)*100))+`%`}"
+                    android:text="@{`占`+(count.totalNum==0?`0`:String.valueOf(decimalFormat.format(Float.valueOf(count.undoNum)/Float.valueOf(count.totalNum)*100)))+`%`}"
                     android:textColor="@color/text_gray_blue"
                     android:textSize="@dimen/text_size_normal" />
             </GridLayout>

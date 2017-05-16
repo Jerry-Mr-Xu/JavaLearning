@@ -19,6 +19,7 @@ import com.jerry.javalearning.base.BaseActivity;
 import com.jerry.javalearning.base.BaseApplication;
 import com.jerry.javalearning.module.ExamModule;
 import com.jerry.javalearning.module.QuestionModule;
+import com.jerry.javalearning.utils.ObjectCastUtil;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -125,7 +126,7 @@ public class LearningActivity extends BaseActivity implements RadioGroup.OnCheck
 
 	private void initData()
 	{
-		questionList = (List<QuestionModule>) getIntent().getSerializableExtra("question_list");
+		questionList = ObjectCastUtil.cast(getIntent().getSerializableExtra("question_list"));
 		if (questionList == null)
 		{
 			questionList = new ArrayList<>();
@@ -136,7 +137,10 @@ public class LearningActivity extends BaseActivity implements RadioGroup.OnCheck
 		if (isStudy)
 		{
 			showCollectOption();
-			cbCollectOption.setChecked(questionList.get(0).isCollected);
+			if (questionList.size() > 0)
+			{
+				cbCollectOption.setChecked(questionList.get(0).isCollected);
+			}
 		}
 		else
 		{

@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.jerry.javalearning.R;
@@ -14,6 +13,7 @@ import com.jerry.javalearning.base.BaseApplication;
 import com.jerry.javalearning.base.ListShowAdapter;
 import com.jerry.javalearning.module.BaseItemModule;
 import com.jerry.javalearning.module.ExamModule;
+import com.jerry.javalearning.utils.ObjectCastUtil;
 import com.jerry.javalearning.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -30,7 +30,6 @@ public class ExamRecordActivity extends BaseActivity implements ListShowAdapter.
 	public static final String TAG = ExamRecordActivity.class.getName();
 
 	private RecyclerView rvList;
-	private ListShowAdapter adapter;
 	private List<BaseItemModule> baseItemList;
 
 	@Override
@@ -44,12 +43,13 @@ public class ExamRecordActivity extends BaseActivity implements ListShowAdapter.
 
 	private void initData()
 	{
-		baseItemList = new ArrayList<BaseItemModule>((ArrayList<ExamModule>) getIntent().getSerializableExtra("item_list"));
+		ArrayList<ExamModule> examList = ObjectCastUtil.cast(getIntent().getSerializableExtra("item_list"));
+		baseItemList = new ArrayList<BaseItemModule>(examList);
 		if (baseItemList.size() == 0)
 		{
 			showNoRecord();
 		}
-		adapter = new ListShowAdapter(baseItemList);
+		ListShowAdapter adapter = new ListShowAdapter(baseItemList);
 		adapter.setOnItemDeleteClickListener(ExamRecordActivity.this);
 		rvList.setAdapter(adapter);
 	}

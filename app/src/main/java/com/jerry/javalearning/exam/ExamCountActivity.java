@@ -5,16 +5,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jerry.javalearning.R;
 import com.jerry.javalearning.base.BaseActivity;
-import com.jerry.javalearning.base.BaseApplication;
 import com.jerry.javalearning.databinding.ActivityCountBinding;
-import com.litesuits.orm.db.assit.QueryBuilder;
+import com.jerry.javalearning.utils.ToastUtil;
 
 import java.text.DecimalFormat;
 
@@ -49,7 +45,7 @@ public class ExamCountActivity extends BaseActivity
 		ExamCountModule count = new ExamCountModule();
 
 		SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getDatabasePath("JavaLearning.db"), null);
-		Cursor cursor = db.rawQuery("select sum(test_total_num),sum(test_correct_num),sum(test_error_num),sum(test_undo_num) from test_table", null);
+		Cursor cursor = db.rawQuery("select sum(exam_total_num),sum(exam_correct_num),sum(exam_error_num),sum(exam_undo_num) from exam_table", null);
 		while (cursor.moveToNext())
 		{
 			count.totalNum = cursor.getInt(0);
@@ -59,8 +55,20 @@ public class ExamCountActivity extends BaseActivity
 		}
 		cursor.close();
 		db.close();
+		if (count.totalNum == 0)
+		{
+			showNoCount();
+		}
 		binding.setCount(count);
 		binding.setDecimalFormat(new DecimalFormat("00.00"));
+	}
+
+	/**
+	 * 显示还没有考试
+	 */
+	private void showNoCount()
+	{
+		ToastUtil.showToast("还没有考试哦", Toast.LENGTH_SHORT);
 	}
 
 	@Override
